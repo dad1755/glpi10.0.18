@@ -61,4 +61,4 @@ RUN echo "memory_limit = 256M" > /usr/local/etc/php/conf.d/glpi.ini \
 # Copy Apache config for GLPI site
 COPY glpi.conf /etc/apache2/sites-available/000-default.conf
 
-EXPOSE 80
+EXPOSE 8080
