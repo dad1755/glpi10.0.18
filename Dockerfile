@@ -20,8 +20,9 @@ RUN a2enmod rewrite
 
 # Set working directory and download/extract GLPI
 WORKDIR /var/www/
-# First copy the tar file into the image
-COPY glpi-10.0.18.tgz /tmp/
+# Download and extract GLPI
+RUN curl -L -o /tmp/glpi.tgz https://github.com/glpi-project/glpi/releases/download/${GLPI_VERSION}/glpi-${GLPI_VERSION}.tgz \
+ && tar -xzvf /tmp/glpi.tgz -C /var/www/
 
 # Now run the tar command to extract it
 RUN tar -xzvf /tmp/glpi-10.0.18.tgz -C /var/www/
