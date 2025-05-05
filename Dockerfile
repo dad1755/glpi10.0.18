@@ -1,3 +1,8 @@
+STEP 7/17: COPY glpi-10.0.18.tgz /tmp/
+error: build error: building at STEP "COPY glpi-10.0.18.tgz /tmp/": checking on sources under "/tmp/build/inputs": copier: stat: "/glpi-10.0.18.tgz": no such file or directory
+
+
+check again my dockerfile
 FROM php:8.3-apache
 
 ARG GLPI_VERSION=10.0.14
