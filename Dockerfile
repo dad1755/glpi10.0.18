@@ -1,11 +1,6 @@
-STEP 7/17: COPY glpi-10.0.18.tgz /tmp/
-error: build error: building at STEP "COPY glpi-10.0.18.tgz /tmp/": checking on sources under "/tmp/build/inputs": copier: stat: "/glpi-10.0.18.tgz": no such file or directory
-
-
-check again my dockerfile
 FROM php:8.3-apache
 
-ARG GLPI_VERSION=10.0.14
+ARG GLPI_VERSION=10.0.18
 
 # Install required PHP extensions and system packages
 RUN apt-get update && apt-get install -y \
@@ -22,16 +17,13 @@ RUN apt-get update && apt-get install -y \
 # Enable Apache rewrite
 RUN a2enmod rewrite
 
-
-# Set working directory and download/extract GLPI
+# Set working directory
 WORKDIR /var/www/
-# Download and extract GLPI
-RUN curl -L -o /tmp/glpi.tgz https://github.com/glpi-project/glpi/releases/download/${GLPI_VERSION}/glpi-${GLPI_VERSION}.tgz \
- && tar -xzvf /tmp/glpi.tgz -C /var/www/
-COPY glpi-10.0.18.tgz /tmp/
 
-# Now run the tar command to extract it
-RUN tar -xzvf /tmp/glpi-10.0.18.tgz -C /var/www/
+# Download and extract GLPI
+RUN curl -L -o /tmp/glpi-${GLPI_VERSION}.tgz https://github.com/glpi-project/glpi/releases/download/${GLPI_VERSION}/glpi-${GLPI_VERSION}.tgz \
+ && tar -xzvf /tmp/glpi-${GLPI_VERSION}.tgz -C /var/www/ \
+ && rm /tmp/glpi-${GLPI_VERSION}.tgz
 
 # Set ownership and permissions for GLPI
 RUN chown -R www-data:www-data /var/www/glpi && \
